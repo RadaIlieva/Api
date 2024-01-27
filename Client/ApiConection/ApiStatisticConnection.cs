@@ -1,5 +1,6 @@
 ﻿using ApiCSV.CRUD.DTOStatistics;
 using ApiCSV.CsvServicesAndDb.DB.DTO;
+using Client.ApiConection.Interfaces;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -9,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Client.ApiConection
 {
-    public class ApiStatisticConnection
+    public class ApiStatisticConnection : IApiStatisticConnection
     {
         private readonly string apiUrl;
 

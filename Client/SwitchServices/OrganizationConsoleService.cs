@@ -1,5 +1,6 @@
 ﻿using ApiCSV.CsvServicesAndDb.DB.DTO;
 using Client.ApiConection;
+using Client.ApiConection.Interfaces;
 using Client.DisplayConsole;
 using Client.NewFolder;
 using Client.SwitchServices.Interfaces;
@@ -16,24 +17,28 @@ namespace Client.SwitchServices
     {
         private readonly CrudOperations crud;
         private readonly string apiUrl;
-        private readonly HttpClient httpClient;
         private readonly DisplayOrganizationMethods displayInfoConsole;
-        private readonly ApiStatisticConnection statisticsConnection;
+        private readonly IApiStatisticConnection statisticsConnection;
         private readonly DisplayStatisticsMethods displayStatisticsMethods;
+        private readonly IApiCsvConnection apiCsvConnection1;
+        private readonly AddOrganization addOrganization;
 
-        public OrganizationConsoleService(CrudOperations crud, string apiUrl, DisplayOrganizationMethods displayInfoConsole, ApiStatisticConnection statisticsConnection, DisplayStatisticsMethods displayStatisticsMethods)
+        private static readonly HttpClient httpClient = new HttpClient();
+
+        public OrganizationConsoleService(CrudOperations crud, string apiUrl, DisplayOrganizationMethods displayInfoConsole, IApiStatisticConnection statisticsConnection, DisplayStatisticsMethods displayStatisticsMethods, IApiCsvConnection apiCsvConnection, AddOrganization addOrganization)
         {
             this.crud = crud;
             this.apiUrl = apiUrl;
-            this.httpClient = new HttpClient();
             this.displayInfoConsole = displayInfoConsole;
             this.statisticsConnection = statisticsConnection;
             this.displayStatisticsMethods = displayStatisticsMethods;
+            this.apiCsvConnection1 = apiCsvConnection;
+            this.addOrganization = addOrganization;
         }
 
         public async Task HandleOperation(string choice)
         {
-            CrudHttpClient apiOrganizationService = null;  // Initialize the variable outside the switch
+            CrudHttpClient apiOrganizationService = null;
 
             switch (choice)
             {
@@ -43,7 +48,7 @@ namespace Client.SwitchServices
                     break;
 
                 case "2":
-                    var newOrganization = await CreateNewOrganization();
+                    var newOrganization = await addOrganization.CreateNewOrganization();
                     if (newOrganization != null)
                     {
                         apiOrganizationService = new CrudHttpClient(httpClient, apiUrl);
@@ -61,7 +66,8 @@ namespace Client.SwitchServices
                 case "4":
                     Console.Write("Enter Organization ID: ");
                     string updateOrganizationId = Console.ReadLine();
-                    var updateOrganization = await CreateNewOrganization();
+                    var updateOrganization = await addOrganization.CreateNewOrganization();
+
                     if (updateOrganization != null)
                     {
                         apiOrganizationService = new CrudHttpClient(httpClient, apiUrl);
@@ -86,6 +92,9 @@ namespace Client.SwitchServices
                     var statistics = await statisticsConnection.GetOrganizationsCountByCountryAsync();
                     displayStatisticsMethods.DisplayOrganizationsCountByCountry(statistics);
                     break;
+                case "8":
+                    await apiCsvConnection1.TestCsvController();
+                    break;
 
                 case "0":
                     Console.WriteLine("Exiting...");
@@ -95,54 +104,6 @@ namespace Client.SwitchServices
                     Console.WriteLine("Invalid choice");
                     break;
             }
-        }
-
-        private async Task<CsvDataDto> CreateNewOrganization()
-        {
-            Console.Write("Enter Organization Name: ");
-            string name = Console.ReadLine();
-
-            Console.Write("Enter Organization Website: ");
-            string website = Console.ReadLine();
-
-            Console.Write("Enter Organization Country: ");
-            string country = Console.ReadLine();
-
-            Console.Write("Enter Organization Description: ");
-            string description = Console.ReadLine();
-
-            Console.Write("Enter Organization Founded : ");
-            if (int.TryParse(Console.ReadLine(), out int founded))
-            {
-                Console.Write("Enter Organization Industry: ");
-                string industry = Console.ReadLine();
-
-                Console.Write("Enter Organization Number of Employees: ");
-                if (int.TryParse(Console.ReadLine(), out int numberOfEmployees))
-                {
-
-                    return new CsvDataDto
-                    {
-                        Name = name,
-                        Website = website,
-                        Country = country,
-                        Description = description,
-                        Founded = founded,
-                        Industry = industry,
-                        NumberOfEmployees = numberOfEmployees
-                    };
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input for Number of Employees.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Invalid input for Founded date.");
-            }
-
-            return null; 
         }
 
     }

@@ -1,11 +1,9 @@
-﻿
-using ApiCSV.CsvServicesAndDb.DB.DTO;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http.Json;
+﻿using ApiCSV.CsvServicesAndDb.DB.DTO;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
+using System;
 
 namespace Client.ApiConection
 {
@@ -21,11 +19,8 @@ namespace Client.ApiConection
         }
 
         public abstract Task<CsvDataDto> GetOrganizationByIdAsync(string organizationId);
-        //public Task<string> AddOrganizationAsync(CsvDataDto csvDataDto);
-        //public Task UpdateOrganizationAsync(string organizationId, CsvDataDto csvDataDto);
-        //public Task DeleteOrganizationAsync(string organizationId);
-
-
-
+        public abstract Task<string> AddOrganizationAsync(CsvDataDto csvDataDto);
+        public abstract Task UpdateOrganizationAsync(string organizationId, CsvDataDto csvDataDto);
+        public abstract Task DeleteOrganizationAsync(string organizationId);
     }
 }

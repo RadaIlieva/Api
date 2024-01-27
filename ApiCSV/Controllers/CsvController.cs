@@ -28,11 +28,11 @@ public class CsvController : ControllerBase
 
         try
         {
-            var directoryPath = Path.Combine("C:", "Users", "radai", "Documents", "Projects", "API", "ApiCSV", "Data");
+            var directoryPath = Path.Combine("C:/Users/radai/Documents/Projects/API/ApiDataCsv/Data");
             var csvDataTask = csvReaderService.ReadCsvFilesFromDirectoryAsync(directoryPath);
 
             var sourceFilePaths = Directory.GetFiles(directoryPath, "*.csv").ToList();
-            var targetDirectory = Path.Combine("C:", "Users", "radai", "Documents", "Projects", "API", "ApiCSV", "ReadedData");
+            var targetDirectory = Path.Combine("C:/Users/radai/Documents/Projects/API/ApiDataCsv/ReadedData");
 
             await csvDatabaseWriterService.ImportCsvDataAsync(await csvDataTask);
 

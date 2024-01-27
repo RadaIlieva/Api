@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Client.ApiConection.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Client.ApiConection
 {
-    public class ApiCsvConnection
+    public class ApiCsvConnection : IApiCsvConnection
     {
         private readonly string apiUrl;
 

@@ -10,8 +10,10 @@ namespace Client.ApiConection
 {
     public class CrudHttpClient : CrudOperations
     {
+        private static readonly HttpClient httpClient = new HttpClient();
+
         public CrudHttpClient(HttpClient httpClient, string apiUrl)
-            : base(httpClient, apiUrl)
+    : base(httpClient, apiUrl)
         {
         }
 
@@ -43,9 +45,7 @@ namespace Client.ApiConection
             return null;
         }
 
-
-
-        public async Task<string> AddOrganizationAsync(CsvDataDto csvDataDto)
+        public override async Task<string> AddOrganizationAsync(CsvDataDto csvDataDto)
         {
             try
             {
@@ -74,8 +74,7 @@ namespace Client.ApiConection
             return null;
         }
 
-
-        public async Task UpdateOrganizationAsync(string organizationId, CsvDataDto csvDataDto)
+        public override async Task UpdateOrganizationAsync(string organizationId, CsvDataDto csvDataDto)
         {
             try
             {
@@ -86,23 +85,25 @@ namespace Client.ApiConection
 
                 var response = await httpClient.PutAsync(updateOrganizationUrl, stringContent);
 
-                if (!response.IsSuccessStatusCode)
+                if (response.IsSuccessStatusCode)
                 {
-                    Console.WriteLine($"Failed to update organization. Error: {response.StatusCode}");
+                    Console.WriteLine($"Organization updated successfully.");
                 }
                 else
                 {
-                    Console.WriteLine($"Organization updated successfully.");
+                    var errorMessage = await response.Content.ReadAsStringAsync();
+                    Console.WriteLine($"Failed to update organization. Error: {response.StatusCode}. {errorMessage}");
                 }
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Exception while updating organization: {ex.Message}");
+                Console.WriteLine($"Error updating organization: {ex.Message}");
             }
         }
 
 
-        public async Task DeleteOrganizationAsync(string organizationId)
+
+        public override async Task DeleteOrganizationAsync(string organizationId)
         {
             try
             {
@@ -124,6 +125,6 @@ namespace Client.ApiConection
                 Console.WriteLine($"Exception while deleting organization: {ex.Message}");
             }
         }
-
     }
+
 }
