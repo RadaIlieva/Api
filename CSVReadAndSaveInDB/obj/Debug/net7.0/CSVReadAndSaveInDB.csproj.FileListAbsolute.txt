@@ -1,0 +1,12 @@
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.csproj.AssemblyReference.cache
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.AssemblyInfoInputs.cache
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.AssemblyInfo.cs
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.csproj.CoreCompileInputs.cache
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\bin\Debug\net7.0\CSVReadAndSaveInDB.deps.json
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\bin\Debug\net7.0\CSVReadAndSaveInDB.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\bin\Debug\net7.0\CSVReadAndSaveInDB.pdb
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\refint\CSVReadAndSaveInDB.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\CSVReadAndSaveInDB.pdb
+C:\Users\radai\Documents\Projects\API\ApiCSV\CSVReadAndSaveInDB\obj\Debug\net7.0\ref\CSVReadAndSaveInDB.dll

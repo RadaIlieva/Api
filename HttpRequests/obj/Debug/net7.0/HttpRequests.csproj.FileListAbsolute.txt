@@ -1,0 +1,15 @@
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\bin\Debug\net7.0\HttpRequests.deps.json
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\bin\Debug\net7.0\HttpRequests.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\bin\Debug\net7.0\HttpRequests.pdb
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\bin\Debug\net7.0\CSVReadAndSaveInDB.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\bin\Debug\net7.0\CSVReadAndSaveInDB.pdb
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.csproj.AssemblyReference.cache
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.AssemblyInfoInputs.cache
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.AssemblyInfo.cs
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.csproj.CoreCompileInputs.cache
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.csproj.CopyComplete
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\refint\HttpRequests.dll
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\HttpRequests.pdb
+C:\Users\radai\Documents\Projects\API\ApiCSV\HttpRequests\obj\Debug\net7.0\ref\HttpRequests.dll
