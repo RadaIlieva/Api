@@ -1,4 +1,5 @@
-﻿using ApiCSV.CsvServicesAndDb.DB.DTO;
+﻿using ApiCSV.Constants;
+using ApiCSV.CsvServicesAndDb.DB.DTO;
 using ApiCSV.CsvServicesAndDb.Services.Interface;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
@@ -28,15 +29,13 @@ public class CsvController : ControllerBase
 
         try
         {
-            var directoryPath = Path.Combine("C:/Users/radai/Documents/Projects/API/ApiDataCsv/Data");
-            var csvDataTask = csvReaderService.ReadCsvFilesFromDirectoryAsync(directoryPath);
+            var csvDataTask = csvReaderService.ReadCsvFilesFromDirectoryAsync(DirectoryConstants.CsvSourceDirectory);
 
-            var sourceFilePaths = Directory.GetFiles(directoryPath, "*.csv").ToList();
-            var targetDirectory = Path.Combine("C:/Users/radai/Documents/Projects/API/ApiDataCsv/ReadedData");
+            var sourceFilePaths = Directory.GetFiles(DirectoryConstants.CsvSourceDirectory, "*.csv").ToList();
 
             await csvDatabaseWriterService.ImportCsvDataAsync(await csvDataTask);
 
-            var moveCsvFilesTask = moveCsvFileService.MoveCsvFilesAsync(sourceFilePaths, targetDirectory);
+            var moveCsvFilesTask = moveCsvFileService.MoveCsvFilesAsync(sourceFilePaths, DirectoryConstants.CsvTargetDirectory);
             await Task.WhenAll(moveCsvFilesTask);
 
             foreach (var sourceFilePath in sourceFilePaths)
@@ -49,7 +48,7 @@ public class CsvController : ControllerBase
             var elapsedTime = stopwatch.ElapsedMilliseconds;
             Console.WriteLine($"Time: {elapsedTime} ");
 
-            return Ok(); 
+            return Ok();
         }
         catch (Exception ex)
         {

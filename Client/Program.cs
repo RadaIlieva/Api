@@ -1,4 +1,5 @@
 ﻿using Client.ApiConection;
+using Client.Constants;
 using Client.DisplayConsole;
 using Client.DTO;
 using Client.NewFolder;
@@ -10,8 +11,8 @@ internal class Program
     public static async Task Main(string[] args)
     {
 
-        var apiUrl = "http://localhost:5054/api";
-        var apiAuthenticationUrl = "http://localhost:5222/api";
+        var apiUrl = ApiConstants.BaseUrl;
+        var apiAuthenticationUrl = ApiConstants.AuthenticationUrl;
 
         var apiCsvConnection = new ApiCsvConnection(apiUrl);
         var crudHttpClient = new CrudHttpClient(new HttpClient(), apiUrl);
