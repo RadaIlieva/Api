@@ -7,6 +7,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ApiCSV", "ApiCSV\ApiCSV.csp
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Client", "Client\Client.csproj", "{2244D624-F031-4C79-8975-5C35755A8638}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Autentication", "Autentication\Autentication.csproj", "{ADC533D0-A2DF-48C3-980F-35C17E478668}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{2244D624-F031-4C79-8975-5C35755A8638}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2244D624-F031-4C79-8975-5C35755A8638}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2244D624-F031-4C79-8975-5C35755A8638}.Release|Any CPU.Build.0 = Release|Any CPU
+		{ADC533D0-A2DF-48C3-980F-35C17E478668}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{ADC533D0-A2DF-48C3-980F-35C17E478668}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{ADC533D0-A2DF-48C3-980F-35C17E478668}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{ADC533D0-A2DF-48C3-980F-35C17E478668}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
