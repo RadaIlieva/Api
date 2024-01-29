@@ -1,4 +1,5 @@
-﻿using Client.DTO;
+﻿using Autentication.Models;
+using Client.DTO;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -11,74 +12,54 @@ namespace Client.ApiConection
 {
     public class ApiAutenticationConection
     {
-        private readonly string apiAutenticationUrl;
-        private readonly HttpClient httpClient;
+        private readonly string apiUrl;
 
-        public ApiAutenticationConection(string apiAutenticationUrl)
+        public ApiAutenticationConection(string apiUrl)
         {
-            this.apiAutenticationUrl = apiAutenticationUrl;
-            this.httpClient = new HttpClient();
+            this.apiUrl = apiUrl;
         }
 
-        public async Task<string> RegisterAsync(UserDTO userDto, string role)
+        public async Task RegisterAsync(UserDTO userDto)
         {
-            try
+            using (var httpClient = new HttpClient())
             {
-                var registerUrl = $"{apiAutenticationUrl}/Authentication/register?role={role}";
+                var requestUrl = $"{apiUrl}/api/Autentication/register";
+                var content = new StringContent(JsonConvert.SerializeObject(userDto), Encoding.UTF8, "application/json");
 
-                var jsonContent = JsonConvert.SerializeObject(userDto);
-                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+                var response = await httpClient.PostAsync(requestUrl, content);
 
-                var response = await httpClient.PostAsync(registerUrl, stringContent);
-
-                if (response.IsSuccessStatusCode)
+                if (!response.IsSuccessStatusCode)
                 {
-                    var registeredUser = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"User {userDto.UserName} registered successfully.");
+                    Console.WriteLine($"Registration failed. Status code: {response.StatusCode}");
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to register user. Error: {response.StatusCode}");
+                    Console.WriteLine("Registration successful.");
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception while registering user: {ex.Message}");
-            }
-
-            return null;
         }
 
         public async Task<string> LoginAsync(UserDTO userDto)
         {
-            try
+            using (var httpClient = new HttpClient())
             {
-                var loginUrl = $"{apiAutenticationUrl}/Authentication/login";
+                var requestUrl = $"{apiUrl}/api/Autentication/login";
+                var content = new StringContent(JsonConvert.SerializeObject(userDto), Encoding.UTF8, "application/json");
 
-                var jsonContent = JsonConvert.SerializeObject(userDto);
-                var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
-
-                var response = await httpClient.PostAsync(loginUrl, stringContent);
+                var response = await httpClient.PostAsync(requestUrl, content);
 
                 if (response.IsSuccessStatusCode)
                 {
                     var token = await response.Content.ReadAsStringAsync();
-                    Console.WriteLine($"Logged in successfully. Token: {token}");
-
+                    Console.WriteLine($"Login successful. Token: {token}");
                     return token;
                 }
                 else
                 {
-                    Console.WriteLine($"Failed to login. Error: {response.StatusCode}");
+                    Console.WriteLine($"Login failed. Status code: {response.StatusCode}");
+                    return null;
                 }
             }
-            catch (Exception ex)
-            {
-                Console.WriteLine($"Exception while logging in: {ex.Message}");
-            }
-
-            return null;
         }
-
     }
 }

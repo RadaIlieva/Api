@@ -1,11 +1,23 @@
 {
   "Version": 1,
-  "Hash": "UwBF048WdTSh9QrSpH7h5B/fXOOBMWj66DJpppzRGHA=",
+  "Hash": "gzSYnWek0KGyrtbmVT4NVlQYfXd+iZXGOAmEr6eJDvo=",
   "Source": "ApiCSV",
   "BasePath": "_content/ApiCSV",
   "Mode": "Default",
   "ManifestType": "Build",
-  "ReferencedProjectsConfiguration": [],
+  "ReferencedProjectsConfiguration": [
+    {
+      "Identity": "C:\\Users\\radai\\Documents\\Projects\\API\\ApiCSVIndiwidualProject\\Autentication\\Autentication.csproj",
+      "Version": 2,
+      "Source": "Autentication",
+      "GetPublishAssetsTargets": "ComputeReferencedStaticWebAssetsPublishManifest;GetCurrentProjectPublishStaticWebAssetItems",
+      "AdditionalPublishProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalPublishPropertiesToRemove": "WebPublishProfileFile;TargetFramework",
+      "GetBuildAssetsTargets": "GetCurrentProjectBuildStaticWebAssetItems",
+      "AdditionalBuildProperties": "Configuration=Debug;Platform=AnyCPU",
+      "AdditionalBuildPropertiesToRemove": "WebPublishProfileFile;TargetFramework"
+    }
+  ],
   "DiscoveryPatterns": [],
   "Assets": []
 }

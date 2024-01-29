@@ -196,3 +196,13 @@ C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\obj\Debug\n
 C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\obj\Debug\net7.0\Client.pdb
 C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\obj\Debug\net7.0\Client.genruntimeconfig.cache
 C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\obj\Debug\net7.0\ref\Client.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Autentication.deps.json
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Autentication.runtimeconfig.json
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Autentication.exe
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\BCrypt.Net-Next.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Scrutor.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Swashbuckle.AspNetCore.Filters.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Swashbuckle.AspNetCore.Filters.Abstractions.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Autentication.dll
+C:\Users\radai\Documents\Projects\API\ApiCSVIndiwidualProject\Client\bin\Debug\net7.0\Autentication.pdb

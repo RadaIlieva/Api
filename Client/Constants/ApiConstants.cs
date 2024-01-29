@@ -9,6 +9,6 @@ namespace Client.Constants
     public static class ApiConstants
     {
         public const string BaseUrl = "http://localhost:5054/api";
-        public const string AuthenticationUrl = "http://localhost:5222/api";
+        public const string AuthenticationUrl = "http://localhost:5157";
     }
 }

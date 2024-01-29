@@ -4,11 +4,14 @@ using ApiCSV.CRUD.Services;
 using ApiCSV.CRUD.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace ApiCSV.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class StatisticController : ControllerBase
     {
         private readonly IStatisticService statisticService;
@@ -19,6 +22,7 @@ namespace ApiCSV.Controllers
         }
 
         [HttpGet("organizationsWithMostEmployees")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<CsvDataDto>>> GetOrganizationsWithMostEmployees(int count)
         {
             var organizations = await statisticService.GetOrganizationsWithMostEmployees(count);
@@ -32,6 +36,7 @@ namespace ApiCSV.Controllers
         }
 
         [HttpGet("organizations-count-by-country")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<IEnumerable<CountryStatisticsDto>>> GetOrganizationsCountByCountry()
         {
             var statistics = await statisticService.GetOrganizationsCountByCountry();

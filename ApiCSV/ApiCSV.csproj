@@ -25,4 +25,8 @@
     <Folder Include="QuartzJob\QuartzJobInterfaces\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Autentication\Autentication.csproj" />
+  </ItemGroup>
+
 </Project>

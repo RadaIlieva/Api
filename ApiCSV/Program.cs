@@ -1,4 +1,4 @@
-using Quartz;
+﻿using Quartz;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using ApiCSV.CsvServicesAndDb.DB;
@@ -6,6 +6,11 @@ using ApiCSV.CsvServicesAndDb.Services.Interface;
 using ApiCSV.CsvServicesAndDb.Services;
 using ApiCSV.CRUD.Services.Interfaces;
 using ApiCSV.CRUD.Services;
+using Autentication.Services.Interfaces;
+using Autentication.Services;
+using Swashbuckle.AspNetCore.Filters;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
 
 namespace ApiCSV
 {
@@ -25,40 +30,28 @@ namespace ApiCSV
 
             builder.Services.AddScoped<IOrganizationService, OrganizationsService>();
             builder.Services.AddScoped<IStatisticService, StatisticService>();
+            builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 
-            //builder.Services.AddQuartz(q =>
-            //{
-            //    q.UseMicrosoftDependencyInjectionScopedJobFactory();
-
-               
-            //    q.AddJob<CsvReaderJob>("CsvReaderJob")
-            //        .AddTrigger(t => t
-            //            .WithIdentity("CsvReaderJobTrigger")
-            //            .StartNow()
-            //            .WithSimpleSchedule(x => x
-            //                .WithIntervalInHours(12)
-            //                .RepeatForever()));
-
-                
-            //    q.AddJob<CsvDatabaseJob>("CsvDatabaseJob")
-            //        .AddTrigger(t => t
-            //            .WithIdentity("CsvDatabaseJobTrigger")
-            //            .StartNow()
-            //            .WithSimpleSchedule(x => x
-            //                .WithIntervalInHours(12)
-            //                .RepeatForever()));
-
-                
-            //    q.AddJob<MoveCsvFileJob>("MoveCsvFileJob")
-            //        .AddTrigger(t => t
-            //            .WithIdentity("MoveCsvFileJobTrigger")
-            //            .StartNow()
-            //            .WithSimpleSchedule(x => x
-            //                .WithIntervalInHours(12)
-            //                .RepeatForever()));
-            //});
-
-            //builder.Services.AddQuartzHostedService();
+            builder.Services.AddSwaggerGen(options =>
+            {
+                options.AddSecurityDefinition("oauth2", new OpenApiSecurityScheme
+                {
+                    In = ParameterLocation.Header,
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey
+                });
+                options.OperationFilter<SecurityRequirementsOperationFilter>();
+            });
+            builder.Services.AddAuthentication().AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    ValidateAudience = false,
+                    ValidateIssuer = false,
+                    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration.GetSection("AppSettings:Token").Value!))
+                };
+            });
 
             builder.Services.AddControllers();
             builder.Services.AddEndpointsApiExplorer();
@@ -79,6 +72,8 @@ namespace ApiCSV
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

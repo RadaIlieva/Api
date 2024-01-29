@@ -3,11 +3,14 @@ using ApiCSV.CRUD.Services;
 using ApiCSV.CRUD.Services.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authorization;
+using System.Data;
 
 namespace ApiCSV.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class OrganizationsController : ControllerBase
     {
         private readonly IOrganizationService organizationsService;
@@ -17,14 +20,9 @@ namespace ApiCSV.Controllers
             this.organizationsService = organizationsService;
         }
 
-        [HttpGet("get-organizations")]
-        public async Task<ActionResult<IEnumerable<CsvDataDto>>> GetOrganizations()
-        {
-            var organizations = await organizationsService.GetOrganizations();
-            return Ok(organizations);
-        }
 
         [HttpGet("{organizationId}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<CsvDataDto>> GetOrganizationById(string organizationId)
         {
             var organization = await organizationsService.GetOrganizationById(organizationId);
@@ -38,6 +36,7 @@ namespace ApiCSV.Controllers
         }
 
         [HttpPost("add-organization")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<string>> AddOrganization(CsvDataDto csvDataDto)
         {
             var newOrganizationId = await organizationsService.AddOrganization(csvDataDto);
@@ -46,6 +45,7 @@ namespace ApiCSV.Controllers
         }
 
         [HttpPut("{organizationId}")]
+        [Authorize(Roles = "Admin, User")]
         public async Task<ActionResult<CsvDataDto>> UpdateOrganization(string organizationId, CsvDataDto csvDataDto)
         {
             var updatedOrganization = await organizationsService.UpdateOrganization(organizationId, csvDataDto);
@@ -55,10 +55,11 @@ namespace ApiCSV.Controllers
                 return NotFound();
             }
 
-            return Ok(updatedOrganization); 
+            return Ok(updatedOrganization);
         }
 
         [HttpDelete("{organizationId}")]
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> DeleteOrganization(string organizationId)
         {
             await organizationsService.DeleteOrganization(organizationId);

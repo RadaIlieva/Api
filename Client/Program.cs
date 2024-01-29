@@ -1,4 +1,8 @@
-﻿using Client.ApiConection;
+﻿using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Autentication.Enums;
+using Client.ApiConection;
 using Client.Constants;
 using Client.DisplayConsole;
 using Client.DTO;
@@ -8,9 +12,8 @@ using Client.SwitchServices.Interfaces;
 
 internal class Program
 {
-    public static async Task Main(string[] args)
+    private static async Task Main(string[] args)
     {
-
         var apiUrl = ApiConstants.BaseUrl;
         var apiAuthenticationUrl = ApiConstants.AuthenticationUrl;
 
@@ -21,85 +24,22 @@ internal class Program
         var displayStatisticsMethods = new DisplayStatisticsMethods();
         var apiAuthenticationConnection = new ApiAutenticationConection(apiAuthenticationUrl);
 
-        string choice = string.Empty;
-        bool loggedIn = false;
+        string choice;
 
-        //do
-        //{
-        //    if (!loggedIn)
-        //    {
-        //        Console.WriteLine("Welcome!");
-        //        Console.WriteLine("1. Register");
-        //        Console.WriteLine("2. Log in");
-        //        Console.Write("Choose operation: ");
-        //        string loginChoice = Console.ReadLine();
+        do
+        {
+            Console.WriteLine("Registration:");
+            var registrationUser = GetUserInput();
+            await apiAuthenticationConnection.RegisterAsync(registrationUser);
 
-        //        switch (loginChoice)
-        //        {
-        //            case "1":
-        //                Console.Write("Enter your username: ");
-        //                string registerUsername = Console.ReadLine();
+            Console.WriteLine("Login:");
+            var loginUser = GetUserInput();
+            var token = await apiAuthenticationConnection.LoginAsync(loginUser);
 
-        //                Console.Write("Enter your password: ");
-        //                string registerPassword = Console.ReadLine();
+            if (token != null)
+            {
+                Console.WriteLine($"Login successful. Token: {token}");
 
-        //                var userDto = new UserDTO
-        //                {
-        //                    UserName = registerUsername,
-        //                    Password = registerPassword
-        //                };
-
-        //                await apiAuthenticationConnection.RegisterAsync(userDto, "UserRole");
-
-        //                Console.WriteLine("Log in:");
-        //                Console.Write("Enter your username: ");
-        //                string loginUsername = Console.ReadLine();
-
-        //                Console.Write("Enter your password: ");
-        //                string loginPassword = Console.ReadLine();
-
-        //                var loginDto = new UserDTO
-        //                {
-        //                    UserName = loginUsername,
-        //                    Password = loginPassword
-        //                };
-
-        //                var token = await apiAuthenticationConnection.LoginAsync(loginDto);
-        //                if (!string.IsNullOrEmpty(token))
-        //                {
-        //                    loggedIn = true;
-        //                    Console.WriteLine();
-        //                }
-        //                break;
-
-        //            case "2":
-        //                Console.Write("Enter your username: ");
-        //                 loginUsername = Console.ReadLine();
-
-        //                Console.Write("Enter your password: ");
-        //                 loginPassword = Console.ReadLine();
-
-        //                 loginDto = new UserDTO
-        //                {
-        //                    UserName = loginUsername,
-        //                    Password = loginPassword
-        //                };
-
-        //                 token = await apiAuthenticationConnection.LoginAsync(loginDto);
-        //                if (!string.IsNullOrEmpty(token))
-        //                {
-        //                    loggedIn = true;
-        //                    Console.WriteLine();
-        //                }
-        //                break;
-
-        //            default:
-        //                Console.WriteLine("Invalid choice");
-        //                break;
-        //        }
-        //    }
-        //    else
-        //    {
                 Console.WriteLine("*** Organization-related operations:");
                 Console.WriteLine("2. Add Organization");
                 Console.WriteLine("3. Get Organization by Id");
@@ -121,14 +61,42 @@ internal class Program
                     using (var httpClient = new HttpClient())
                     {
                         CrudOperations crud = new CrudHttpClient(httpClient, apiUrl);
-                        IOrganizationConsoleService organizationService = new OrganizationConsoleService(crud, apiUrl,      displayInfoConsole, apiStatisticConnection, displayStatisticsMethods, apiCsvConnection, new AddOrganization());
+                        IOrganizationConsoleService organizationService = new OrganizationConsoleService(
+                            crud,
+                            apiUrl,
+                            displayInfoConsole,
+                            apiStatisticConnection,
+                            displayStatisticsMethods,
+                            apiCsvConnection,
+                            new AddOrganization()
+                        );
                         await organizationService.HandleOperation(choice);
                     }
 
                 } while (choice != "0");
-        //    }
-        //} while (choice != "0");
+            }
+            else
+            {
+                Console.WriteLine("Login failed. Exiting...");
+                choice = "0";
+            }
+
+        } while (choice != "0");
 
         Console.ReadLine();
+    }
+
+    private static UserDTO GetUserInput()
+    {
+        Console.Write("Enter your username: ");
+        var username = Console.ReadLine();
+
+        Console.Write("Enter your password: ");
+        var password = Console.ReadLine();
+
+        Console.Write("Enter your role (User/Admin): ");
+        var role = Console.ReadLine();
+
+        return new UserDTO { UserName = username, Password = password, Role = (UserRole)Enum.Parse(typeof(UserRole), role) };
     }
 }
